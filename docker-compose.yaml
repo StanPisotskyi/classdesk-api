@@ -1,0 +1,22 @@
+services:
+  db:
+    container_name: classdesk-db
+    image: mysql:latest
+    volumes:
+      - classdesk-vol:/var/lib/mysql
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 123123
+      MYSQL_DATABASE: classdesk
+  pma:
+    container_name: classdesk-pma
+    image: phpmyadmin:latest
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      - PMA_ARBITRARY=1
+volumes:
+  classdesk-vol:

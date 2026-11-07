@@ -76,6 +76,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         dt = datetime.now() + timedelta(days=1)
 
         return jwt.encode({
-            'email': self.email,
+            'id': self.id,
             'exp': int(dt.strftime('%s'))
         }, settings.SECRET_KEY, algorithm='HS256')

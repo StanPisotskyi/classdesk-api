@@ -14,6 +14,11 @@ import pymysql
 
 from pathlib import Path
 
+import certifi
+import os
+
+os.environ["SSL_CERT_FILE"] = certifi.where()
+
 
 pymysql.install_as_MySQLdb()
 
@@ -146,3 +151,14 @@ REST_FRAMEWORK = {
         'api_auth.backends.JWTAuthentication'
     ],
 }
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "sandbox.smtp.mailtrap.io"
+EMAIL_HOST_USER = "781ffb5c9cf840"
+EMAIL_HOST_PASSWORD = "ec465bab37c8b2"
+EMAIL_PORT = 2525
+EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = "noreply@classdesk.local"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"

@@ -51,7 +51,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     is_active = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     role = models.CharField(max_length=20,choices=Role.choices, default=Role.STUDENT)
-    avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
+    avatar = models.CharField(max_length=100, blank=True, null=True)
     is_staff = models.BooleanField(default=False)
 
     USERNAME_FIELD = 'email'
@@ -65,6 +65,18 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def token(self):
         return self._generate_jwt_token()
+
+    @property
+    def avatar_50(self):
+        if not self.avatar:
+            return None
+        return f"/media/avatars/{self.avatar}_50.jpg"
+
+    @property
+    def avatar_200(self):
+        if not self.avatar:
+            return None
+        return f"/media/avatars/{self.avatar}_200.jpg"
 
     def get_full_name(self):
         return self.first_name + ' ' + self.last_name
